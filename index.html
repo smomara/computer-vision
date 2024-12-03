@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Recognition</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Hand Gesture Recognition</h1>
+            <nav class="mode-nav">
+                <button id="trainingModeBtn" class="mode-btn active">Training</button>
+                <button id="inferenceModeBtn" class="mode-btn">Recognition</button>
+            </nav>
+        </header>
+
+        <main class="app-main">
+            <div class="camera-section">
+                <div id="video-container" class="video-wrapper">
+                    <video id="video" playsinline autoplay muted></video>
+                    <canvas id="output"></canvas>
+                    <div class="loading-overlay" id="loadingOverlay">
+                        <div class="loading-spinner"></div>
+                        <p>Loading model...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div id="trainingControls" class="panel">
+                    <div class="panel-content">
+                        <section class="instructions-box">
+                            <h2>Training Instructions</h2>
+                            <ol>
+                                <li>Enter a gesture name below</li>
+                                <li>Position your hand clearly in view</li>
+                                <li>Click "Capture Gesture" or press spacebar</li>
+                                <li>Repeat for different gestures</li>
+                            </ol>
+                        </section>
+
+                        <section class="input-group">
+                            <input type="text" id="gestureName" placeholder="Enter gesture name" autocomplete="off">
+                            <div class="button-row">
+                                <button id="captureBtn" class="btn primary" disabled>Capture Gesture</button>
+                                <button id="clearBtn" class="btn secondary">Clear All</button>
+                            </div>
+                        </section>
+
+                        <section class="gestures-list">
+                            <h2>Trained Gestures</h2>
+                            <div id="capturesList"></div>
+                        </section>
+                    </div>
+                </div>
+
+                <div id="inferenceControls" class="panel" style="display: none;">
+                    <div class="panel-content">
+                        <section class="instructions-box">
+                            <h2>Recognition Mode</h2>
+                            <p>Show your hand to see predictions in real-time</p>
+                        </section>
+                        <div id="predictionResult" class="prediction-display">
+                            Waiting for hand...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="status-bar">
+                <span id="modelStatus">Status: Initializing...</span>
+                <span id="cameraStatus">Camera: Checking...</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <h2>Error</h2>
+            <p id="errorMessage"></p>
+            <div class="modal-actions">
+                <button id="retryBtn" class="btn primary">Retry</button>
+                <button id="closeErrorBtn" class="btn secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@tensorflow/tfjs-core@2.1.0/dist/tf-core.js"></script>
+    <script src="https://unpkg.com/@tensorflow/tfjs-converter@2.1.0/dist/tf-converter.js"></script>
+    <script src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.1.0/dist/tf-backend-webgl.js"></script>
+    <script src="https://unpkg.com/@tensorflow-models/handpose@0.0.6/dist/handpose.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
